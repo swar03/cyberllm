@@ -1,0 +1,3 @@
+[submodule "cyberllm"]
+	path = cyberllm
+	url = https://github.com/swar03/cyberllm.git
