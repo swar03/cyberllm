@@ -21,7 +21,7 @@ try:
     db = FAISS.load_local(DB_FAISS_PATH, embedding_model, allow_dangerous_deserialization=True)
     llm = ChatGroq(model="llama-3.3-70b-versatile", api_key=GROQ_API_KEY)
 except Exception as e:
-    print("❌ Initialization failed:", e)
+    print(" Initialization failed:", e)
     db, llm = None, None
 
 

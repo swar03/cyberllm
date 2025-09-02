@@ -28,11 +28,11 @@ def load_docx_documents(file_list):
     for file_path in file_list:
         if file_path.lower().endswith(".docx") and os.path.exists(file_path):
             file_name = os.path.basename(file_path)
-            print(f"📝 Loading DOCX: {file_name}")
+            print(f" Loading DOCX: {file_name}")
             loader = Docx2txtLoader(file_path)
             all_documents.extend(loader.load())
         else:
-            print(f"⚠️ Skipping (not found or not DOCX): {file_path}")
+            print(f" Skipping (not found or not DOCX): {file_path}")
     return all_documents
 
 
@@ -43,34 +43,34 @@ def create_vector_store():
     documents = load_docx_documents(DATA_FILES)
 
     if not documents:
-        print("❌ Error: No DOCX documents found.")
+        print(" Error: No DOCX documents found.")
         return
-    print(f"✅ Successfully loaded {len(documents)} documents/pages.")
+    print(f"Successfully loaded {len(documents)} documents/pages.")
 
     # Split documents into chunks
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
     text_chunks = text_splitter.split_documents(documents)
-    print(f"✅ Split documents into {len(text_chunks)} chunks.")
+    print(f" Split documents into {len(text_chunks)} chunks.")
 
     # Initialize embedding model with error handling
     try:
-        print("🔄 Initializing embedding model...")
+        print(" Initializing embedding model...")
         embedding_model = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
     except ImportError:
-        print("❌ Error: HuggingFace embeddings require missing dependencies.")
-        print("👉 Run: pip install sentence-transformers torch transformers accelerate")
+        print("Error: HuggingFace embeddings require missing dependencies.")
+        print(" Run: pip install sentence-transformers torch transformers accelerate")
         sys.exit(1)
     except Exception as e:
-        print(f"❌ Unexpected error initializing embeddings: {e}")
+        print(f" Unexpected error initializing embeddings: {e}")
         sys.exit(1)
 
     # Create FAISS vector store
-    print("🔄 Creating FAISS vector store... (This may take a moment)")
+    print(" Creating FAISS vector store... (This may take a moment)")
     db = FAISS.from_documents(text_chunks, embedding_model)
 
     # Save the vector store locally
     db.save_local(DB_FAISS_PATH)
-    print(f"✅ Vector store created successfully and saved at: {DB_FAISS_PATH}")
+    print(f" Vector store created successfully and saved at: {DB_FAISS_PATH}")
 
 
 if __name__ == '__main__':
