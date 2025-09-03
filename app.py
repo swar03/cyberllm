@@ -1,7 +1,7 @@
 import os
 import sys
 import datetime
-import traceback
+import trace
 from flask import Flask, render_template, request, jsonify
 
 from langchain_community.vectorstores import FAISS
