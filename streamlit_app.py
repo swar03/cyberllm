@@ -12,7 +12,7 @@ from langchain_groq import ChatGroq
 load_dotenv()  # <-- 2. LOAD THE .ENV FILE
 
 # --- Config ---
-DB_FAISS_PATH = "vectorstore/db_iss"
+DB_FAISS_PATH = "vectorstore/db_faiss"
 LOG_FILE = "chatbot_log.txt"
 
 # --- Page Configuration ---
@@ -50,7 +50,7 @@ def initialize_models():
         )
         
         llm = ChatGroq(
-            model="llama-3.1-70b-versatile",
+            model="openai/gpt-oss-120b",
             api_key=groq_api_key,
             temperature=0.1,
             max_tokens=1000
