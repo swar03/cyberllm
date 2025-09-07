@@ -2,18 +2,17 @@ import os
 import sys
 import datetime
 import traceback
-
+from dotenv import load_dotenv 
 from langchain_community.vectorstores import FAISS
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_groq import ChatGroq  # Groq LLM wrapper
-
+load_dotenv()
 # --- Config ---
 DB_FAISS_PATH = "vectorstore/db_faiss"
 LOG_FILE = "chatbot_log.txt"
 
 # Set your Groq API key here (or via environment variable)
-GROQ_API_KEY = os.getenv("GROQ_API_KEY", "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")
-
+groq_api_key = os.getenv("GROQ_API_KEY")
 
 def log_interaction(user_query, context_text, prompt, answer, error=None):
     """Log interactions and errors into a text file"""
@@ -41,7 +40,7 @@ def main():
     try:
         llm = ChatGroq(
             model="llama-3.1-70b-versatile",  # or "llama-3.2-90b-text"
-            api_key=GROQ_API_KEY
+            api_key=groq_api_key
         )
     except Exception as e:
         print("❌ Failed to initialize Groq LLM.")
