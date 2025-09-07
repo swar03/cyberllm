@@ -16,7 +16,7 @@ DB_FAISS_PATH = "vectorstore/db_faiss"
 LOG_FILE = "chatbot_log.txt"
 
 # --- Page Configuration ---
-st.set_page_config(page_title="🔍 Cybercrime Investigation Assistant BKL Aakash", page_icon="🤖", layout="wide")
+st.set_page_config(page_title="🔍 Cybercrime Investigation Assistant ", page_icon="🤖", layout="wide")
 
 # --- Model and Resource Loading ---
 torch.set_default_device('cpu')
